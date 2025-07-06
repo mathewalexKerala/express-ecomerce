@@ -1,0 +1,86 @@
+<div class="container">
+  <!-- Ride Booking Card -->
+  <div class="booking-card">
+    <div class="booking-title">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>Where would you like to go?</span>
+    </div>
+    <div class="location-inputs">
+      <div class="input-group">
+        <i class="fas fa-circle"></i>
+        <input type="text" placeholder="Pickup location">
+      </div>
+      <div class="input-group">
+        <i class="fas fa-flag"></i>
+        <input type="text" placeholder="Destination">
+      </div>
+    </div>
+    <button class="book-btn">Search Rides</button>
+  </div>
+  
+  <!-- Available Cars Section -->
+  <div class="cars-section">
+    <h2 class="section-title">
+      Available Rides
+      <a href="#" class="view-all">View all</a>
+    </h2>
+    
+    <div class="cars-grid">
+      {{#each products}}
+      <div class="car-card">
+        <div class="car-image">
+          <img src={{this.productImage}} alt="Economy Car">
+          <div class="car-badge">Most Popular</div>
+        </div>
+        <div class="car-details">
+          <h3 class="car-name">{{this.productName}}</h3>
+          <p class="car-type">{{this.description}}</p>
+          <div class="car-features">
+            <div class="car-feature">
+              <i class="fas fa-user"></i>
+              <span>4 seats</span>
+            </div>
+            <div class="car-feature">
+              <i class="fas fa-suitcase"></i>
+              <span>2 bags</span>
+            </div>
+          </div>
+          <div class="car-price">
+            <div class="price">{{this.productPrice}} <span>estimated</span></div>
+            <form action="/add-to-cart" method="POST" class="d-grid">
+              <input type="hidden" name="productId" value="{{this._id}}">
+              <input type="hidden" name="productName" value="{{this.productName}}">
+              <input type="hidden" name="productPrice" value="{{this.productPrice}}">
+              <input type="hidden" name="productImage" value="{{this.productImage}}">
+              <button class="book-now-btn" type="submit">Book Now</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {{/each}} <!-- THIS WAS MISSING -->
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="#" class="nav-item active">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </a>
+  <a href="#" class="nav-item">
+    <i class="fas fa-search"></i>
+    <span>Search</span>
+  </a>
+  <a href="#" class="nav-item">
+    <i class="fas fa-receipt"></i>
+    <span>Rides</span>
+  </a>
+  <a href="#" class="nav-item">
+    <i class="fas fa-user"></i>
+    {{#if user}}
+    <span>{{user.firstName}}</span>
+    {{else}}
+    <span>Profile</span>
+    {{/if}}
+  </a>
+</nav>

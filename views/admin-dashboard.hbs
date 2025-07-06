@@ -1,0 +1,274 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Product Management</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            <i class="fas fa-plus me-1"></i> Add Product
+        </button>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Products List</h6>
+            <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="Search products..." id="productSearch">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="productsTable" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {{#each products}}
+<tr>
+    <td>{{this.displayIndex}}</td>
+    <td>
+        <img src="{{this.productImage}}" alt="{{this.productName}}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+    </td>
+    <td>{{this.productName}}</td>
+    <td>{{this.productCategory}}</td>
+    <td>${{this.productPrice}}</td>
+    <td>{{this.stockQuantity}}</td>
+    <td>
+        <span class="badge bg-{{#if this.productStatus}}success{{else}}warning{{/if}}">
+            {{#if this.productStatus}}In Stock{{else}}Out of Stock{{/if}}
+        </span>
+    </td>
+    <td>
+        <button class="btn btn-sm btn-info view-product" data-id="{{this._id}}" title="View">
+            <i class="fas fa-eye"></i>
+        </button>
+        <button class="btn btn-sm btn-primary edit-product" data-id="{{this._id}}" title="Edit">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-danger delete-product" data-id="{{this._id}}" title="Delete">
+            <i class="fas fa-trash"></i>
+        </button>
+    </td>
+</tr>
+{{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addProductForm" method="post" action="/admin/add-product" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" name="productName" id="productName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="productCategory" class="form-label">Category</label>
+                            <select class="form-select" name="productCategory" id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Home & Garden">Home & Garden</option>
+                                <option value="Books">Books</option>
+                                <option value="Toys">Toys</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="productPrice" class="form-label">Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" name="productPrice" id="productPrice" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="productStock" class="form-label">Stock Quantity</label>
+                            <input type="number" class="form-control" name="stockQuantity" id="productStock" min="0" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productDescription" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="productDescription" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Product Image</label>
+                        <input class="form-control" name="productImage" type="file" id="productImage" accept="image/*">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" name="productStatus" type="checkbox" id="productStatus" checked>
+                        <label class="form-check-label" for="productStatus">
+                            Available in stock
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Product Modal -->
+<div class="modal fade" id="viewProductModal" tabindex="-1" aria-labelledby="viewProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewProductModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <img id="viewProductImage" src="" alt="Product Image" class="img-fluid rounded" style="max-height: 200px;">
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <td id="viewProductId"></td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td id="viewProductName"></td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td id="viewProductCategory"></td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td id="viewProductPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Stock</th>
+                        <td id="viewProductStock"></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td id="viewProductStatus"></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td id="viewProductDescription"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editProductForm" data-id={{this._id}} method="post" action="/admin/edit-product" enctype="multipart/form-data">
+
+                <input type="hidden" id="editProductId">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editProductName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="editProductName" name="editProductName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editProductCategory" class="form-label">Category</label>
+                            <select class="form-select" name="editProductCategory" id="editProductCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Home & Garden">Home & Garden</option>
+                                <option value="Books">Books</option>
+                                <option value="Toys">Toys</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editProductPrice" class="form-label">Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" name="editProductPrice" class="form-control" id="editProductPrice" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editProductStock" class="form-label">Stock Quantity</label>
+                            <input type="number" name="editProductStock" class="form-control" id="editProductStock" min="0" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editProductDescription" class="form-label">Description</label>
+                        <textarea class="form-control" name="editProductDescription" id="editProductDescription" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editProductImage" class="form-label">Product Image</label>
+                        <input class="form-control" name="editProductImage" type="file" id="editProductImage" accept="image/*">
+                        <small class="text-muted">Leave empty to keep current image</small>
+                        <div class="mt-2">
+                            <img id="editProductCurrentImage" src="" alt="Current Image" style="max-height: 100px;">
+                        </div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" name="editProductStatus" type="checkbox" id="editProductStatus">
+                        <label class="form-check-label" for="editProductStatus">
+                            Available in stock
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteProductModal"  tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteProductModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+                <p><strong>Product ID:</strong> <span id="deleteProductId"></span></p>
+                <p><strong>Product Name:</strong> <span id="deleteProductName"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete" data-id={{this._id}}>Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

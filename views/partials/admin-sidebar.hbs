@@ -1,0 +1,52 @@
+<div class="sidebar bg-dark text-white d-flex flex-column flex-shrink-0 p-3" style="width: 250px;">
+    <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <i class="fas fa-cog me-2"></i>
+        <span class="fs-4">Admin Panel</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/admin/dashboard" class="nav-link text-white active">
+                <i class="fas fa-tachometer-alt me-2"></i>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="/admin/users" class="nav-link text-white">
+                <i class="fas fa-users me-2"></i>
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="/admin/products" class="nav-link text-white">
+                <i class="fas fa-boxes me-2"></i>
+                Products
+            </a>
+        </li>
+        <li>
+            <a href="/admin/orders" class="nav-link text-white">
+                <i class="fas fa-shopping-cart me-2"></i>
+                Orders
+            </a>
+        </li>
+        <li>
+            <a href="/admin/settings" class="nav-link text-white">
+                <i class="fas fa-cog me-2"></i>
+                Settings
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://via.placeholder.com/30" alt="Admin" width="30" height="30" class="rounded-circle me-2">
+            <strong>Admin</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    </div>
+</div>

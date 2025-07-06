@@ -1,0 +1,73 @@
+<div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <i class="fas fa-car-side"></i>
+                <h2>Create your <span>RideNow</span> account</h2>
+            </div>
+            
+            <form class="auth-form" action="/signup" method="POST">
+                <div class="name-fields">
+                    <div class="input-group">
+                        <label for="firstName">First Name</label>
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="firstName" name="firstName" class="input-field" placeholder="John" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="lastName">Last Name</label>
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="lastName" name="lastName" class="input-field" placeholder="Doe" required>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" id="email" name="email" class="input-field" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="tel" id="phone" name="phone" class="input-field" placeholder="+1 (___) ___-____" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="password" name="password" class="input-field" placeholder="Create a password" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="input-field" placeholder="Confirm your password" required>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="auth-btn">Create Account</button>
+                
+                <div class="divider">
+                    <span>Or sign up with</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        Continue with Google
+                    </button>
+                    <button type="button" class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        Continue with Facebook
+                    </button>
+                </div>
+                
+                <div class="auth-switch">
+                    Already have an account? <a href="/login">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
