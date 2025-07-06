@@ -4,14 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const exphbs = require('express-handlebars');
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
+var indexRouter = require('../routes/index');
+var adminRouter = require('../routes/admin');
 var hbs = require('hbs')
 var app = express();
 const session = require('express-session')
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
-var db = require('./config/connection')
+var db = require('../config/connection')
 
 db.connect(function(err){
   if(err) return console.log('database could be connected ',err)
